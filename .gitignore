@@ -73,3 +73,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Project specific
+# =========================
+# Don't commit your config file!
+config.json
