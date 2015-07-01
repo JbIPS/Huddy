@@ -2,15 +2,16 @@
 
 var Forecast = require('forecast.io-bluebird');
 var config = require('./config');
+var Twitter = require('twitter');
 
+var forecastConfig = config.forecast;
 var forecast = new Forecast({
-    key: config.apiKey
+    key: forecastConfig.apiKey
 });
 
-var time = new Date('2015-07-01T07:00:00.000Z').getTime() / 1000;
-
-forecast.fetch(config.latitude, config.longitude, config.options)
+forecast.fetch(forecastConfig.latitude, forecastConfig.longitude, forecastConfig.options)
 .then(function(result) {
+  // TODO Get instantanate temperature
     let todayReport = result.daily.data[0];
     let date = new Date(todayReport.time*1000);
     console.info('==============================');
@@ -26,4 +27,27 @@ forecast.fetch(config.latitude, config.longitude, config.options)
 })
 .catch(function(error) {
     console.error(error);
+});
+
+var twitterConfig = config.twitter;
+var twitter = new Twitter({
+  consumer_key: twitterConfig.consumerKey,
+  consumer_secret: twitterConfig.consumerSecret,
+  access_token_key: twitterConfig.accessToken,
+  access_token_secret: twitterConfig.accessTokenSecret
+});
+
+twitter.get('statuses/user_timeline', {
+  screen_name: twitterConfig.screenName,
+  count: 3,
+  exclude_replies: true
+}, function(err, tweets, response){
+  // TODO Filter today's tweets, warn user when none
+  if(err)
+    console.error(err);
+  else{
+    for(let tweet of tweets){
+      console.log(' - '+tweet.text);
+    }
+  }
 });

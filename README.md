@@ -10,11 +10,20 @@ First, you'll need to configure it with a `config.json` file at the root of the 
 This file will look like
 ```js
 {
-  "apiKey": "15ea3....", // Your Forecast.io API Key
-  "longitude": 2.29500,
-  "latitude": 48.85795,
-  "options": {
-    // Any options you want to pass to your query
+  "forecast": {
+    "apiKey": "15ea3...", // Your Forecast.io API Key
+    "longitude": 2.29500,
+    "latitude": 48.85795,
+    "options": {
+      // Any options you want to pass to your query
+    }
+  },
+  "twitter": { // Your Twitter app credentials
+    "consumerKey": "D58Eff...",
+    "consumerSecret": "cvga2...",
+    "accessToken": "25689...",
+    "accessTokenSecret": "Iru874...",
+    "screenName": "RERB"
   }
 }
 ```

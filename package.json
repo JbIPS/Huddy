@@ -3,12 +3,14 @@
   "version": "0.0.1",
   "description": "Heads up display for day to day informations",
   "main": "index.js",
+  "repository": "https://github.com/JbIPS/Huddy",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jean-Baptiste Richardet",
   "license": "MIT",
   "dependencies": {
-    "forecast.io-bluebird": "0.0.1"
+    "forecast.io-bluebird": "0.0.1",
+    "twitter": "^1.2.5"
   }
 }
