@@ -23,7 +23,7 @@ This file will look like
     "consumerSecret": "cvga2...",
     "accessToken": "25689...",
     "accessTokenSecret": "Iru874...",
-    "screenName": "RERB"
+    "screenName": "JbIPS"
   }
 }
 ```

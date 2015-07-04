@@ -1,53 +1,44 @@
 'use strict';
 
-var Forecast = require('forecast.io-bluebird');
 var config = require('./config');
-var Twitter = require('twitter');
+var TwitterUpdate = require('./lib/twitter');
+var ForecastUpdate = require('./lib/forecast');
 
-var forecastConfig = config.forecast;
-var forecast = new Forecast({
-    key: forecastConfig.apiKey
-});
+var forecast = new ForecastUpdate(config.forecast);
 
-forecast.fetch(forecastConfig.latitude, forecastConfig.longitude, forecastConfig.options)
+forecast.getUpdate()
 .then(function(result) {
-  // TODO Get instantanate temperature
-    let todayReport = result.daily.data[0];
-    let date = new Date(todayReport.time*1000);
-    console.info('==============================');
-    console.info('Report for '+
-      date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear());
-    console.info(todayReport.summary);
-    console.info(todayReport.temperatureMin + '(' +
-      todayReport.apparentTemperatureMin+') / ' +
-      todayReport.temperatureMax + '(' +
-      todayReport.apparentTemperatureMax + ')');
-    console.info('Rain probability: ' + todayReport.precipProbability+'%');
-    console.info('Winds: ' + todayReport.windSpeed+'m/s');
+  let temperature = result.currently.temperature;
+  let todayReport = result.daily.data[0];
+  let date = new Date(todayReport.time*1000);
+  console.info('==============================');
+  console.info('Report for '+
+    date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear()+
+    ' ' + new Date().toLocaleTimeString().slice(0, 5));
+  console.info(todayReport.summary);
+  console.info(temperature + '°');
+  console.info(todayReport.temperatureMin + '(' +
+    todayReport.apparentTemperatureMin+') / ' +
+    todayReport.temperatureMax + '(' +
+    todayReport.apparentTemperatureMax + ')');
+  console.info('Rain probability: ' + (todayReport.precipProbability*100)+'%');
+  console.info('Winds: ' + todayReport.windSpeed+'m/s');
 })
 .catch(function(error) {
     console.error(error);
-});
-
-var twitterConfig = config.twitter;
-var twitter = new Twitter({
-  consumer_key: twitterConfig.consumerKey,
-  consumer_secret: twitterConfig.consumerSecret,
-  access_token_key: twitterConfig.accessToken,
-  access_token_secret: twitterConfig.accessTokenSecret
-});
-
-twitter.get('statuses/user_timeline', {
-  screen_name: twitterConfig.screenName,
-  count: 3,
-  exclude_replies: true
-}, function(err, tweets, response){
-  // TODO Filter today's tweets, warn user when none
-  if(err)
-    console.error(err);
-  else{
-    for(let tweet of tweets){
+})
+.then(function(){
+  var twitter = new TwitterUpdate(config.twitter);
+  return twitter.getUpdate();
+})
+.then(function(todaysTweets){
+  if(todaysTweets.length > 0)
+    for(let tweet of todaysTweets){
       console.log(' - '+tweet.text);
     }
-  }
+  else
+    console.warn('No tweets today.');
+})
+.catch(function(error) {
+    console.error(error.stack);
 });

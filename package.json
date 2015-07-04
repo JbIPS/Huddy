@@ -10,6 +10,7 @@
   "author": "Jean-Baptiste Richardet",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^2.9.32",
     "forecast.io-bluebird": "0.0.1",
     "twitter": "^1.2.5"
   }
