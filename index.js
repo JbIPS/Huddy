@@ -1,10 +1,13 @@
 'use strict';
 
-var config = require('./config');
-var TwitterUpdate = require('./lib/twitter');
-var ForecastUpdate = require('./lib/forecast');
+const config = require('./config');
+const TwitterUpdate = require('./lib/twitter');
+const ForecastUpdate = require('./lib/forecast');
+const CalendarUpdate = require('./lib/calendar');
 
-var forecast = new ForecastUpdate(config.forecast);
+const calendar = new CalendarUpdate(config.calendar);
+const forecast = new ForecastUpdate(config.forecast);
+const twitter = new TwitterUpdate(config.twitter);
 
 forecast.getUpdate()
 .then(function(result) {
@@ -28,7 +31,6 @@ forecast.getUpdate()
     console.error(error);
 })
 .then(function(){
-  var twitter = new TwitterUpdate(config.twitter);
   return twitter.getUpdate();
 })
 .then(function(todaysTweets){
@@ -38,6 +40,16 @@ forecast.getUpdate()
     }
   else
     console.warn('No tweets today.');
+})
+.then(function(){
+  return calendar.getUpdate();
+})
+.then(function(todaysEvent){
+  if(todaysEvent.length > 0)
+    for(let event of todaysEvent)
+      console.log('- ', event.summary);
+  else
+    console.log('No events today');
 })
 .catch(function(error) {
     console.error(error.stack);

@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "bluebird": "^2.9.32",
+    "dav": "^1.7.6",
     "forecast.io-bluebird": "0.0.1",
     "twitter": "^1.2.5"
   }
