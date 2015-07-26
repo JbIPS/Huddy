@@ -2,7 +2,10 @@
   "name": "huddy",
   "version": "0.0.1",
   "description": "Heads up display for day to day informations",
-  "main": "index.js",
+  "main": "html/index.html",
+  "window": {
+		"toolbar": false
+	},
   "repository": "https://github.com/JbIPS/Huddy",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
