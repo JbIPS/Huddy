@@ -1,0 +1,98 @@
+body {
+  background-image: url(../assets/background.jpg);
+  color: white;
+  font-family: sans-serif;
+}
+
+body > div{
+  float: left;
+}
+
+#meteo {
+  width: 70%;
+  margin-bottom: 40px;
+}
+
+#meteo h2 {
+  font-size: 2.5em;
+}
+
+#meteo h3 {
+  font-size: 2em;
+}
+
+#meteo .blockLeft p:first-of-type{
+  font-size: 1.3em;
+}
+
+#icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30%;
+}
+
+#temperature {
+  font-size: 100px;
+  font-weight: bold;
+}
+
+#feltTemp {
+  margin-right: 40px;
+  margin-top: -1em;
+}
+
+#feltTemp .min, #feltTemp .max {
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 15px;
+  height: 20px;
+  display: inline-block;
+}
+
+#tweets {
+  padding-right: 2%;
+  border-right: 1px solid;
+  width: 50%;
+}
+
+#tweets > ul {
+  list-style-image: url(../assets/bullet.png);
+}
+
+#events > ul {
+  list-style-image: url(../assets/calendar.png);
+}
+
+#events > h2 {
+  line-height: 0;
+}
+
+
+.blockLeft {
+  float: left;
+  width: 55%;
+}
+
+.blockLeft > h2, .blockLeft > h3 {
+  line-height: 0;
+}
+
+.blockRight {
+  float: right;
+  width: 45%;
+}
+
+.temp > p {
+  text-align: right;
+  font-size: 25px;
+  line-height: 0em;
+}
+
+.min {
+  background-image: url(../assets/temp-min.png);
+}
+
+.max {
+  background-image: url(../assets/temp-max.png);
+}

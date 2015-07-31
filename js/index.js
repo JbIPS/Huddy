@@ -12,29 +12,32 @@ const twitter = new TwitterUpdate(config.twitter);
 
 forecast.getUpdate()
 .then(function(result) {
-  let temperature = result.currently.temperature;
-  let todayReport = result.daily.data[0];
-  let date = new Date(todayReport.time*1000);
-  let meteoBlock = document.getElementById('meteo');
-  let title = document.querySelector('#meteo h2');
-  title.textContent += date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear()+
-    ' ' + new Date().toLocaleTimeString().slice(0, 5);
+  const temperature = result.currently.temperature | 0;
+  const todayReport = result.daily.data[0];
+  const date = new Date(todayReport.time*1000);
+  const meteoBlock = document.getElementById('meteo');
+  const title = document.querySelector('#meteo h2');
+  title.textContent += date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
+  document.querySelector('#meteo h3').textContent = new Date().toLocaleTimeString().slice(0, 5);
 
-  let summary = document.getElementById('summary');
+  const summary = document.getElementById('summary');
   summary.textContent = todayReport.summary;
 
-  let temperatureBlock = document.getElementById('temperature');
-  temperatureBlock.textContent = temperature + '°\n' +
-   todayReport.temperatureMin + '(' +
-    todayReport.apparentTemperatureMin+') / ' +
-    todayReport.temperatureMax + '(' +
-    todayReport.apparentTemperatureMax + ')';
+  const temperatureBlock = document.getElementById('temperature');
+  temperatureBlock.textContent = temperature + '°';
+  const feltTemp = document.getElementById('feltTemp');
+  feltTemp.querySelector('.minTemp').textContent = (todayReport.temperatureMin | 0) + ' / ';
+  feltTemp.querySelector('.maxTemp').textContent = (todayReport.temperatureMax | 0 );
 
-  let rain = document.getElementById('rain');
-  rain.textContent = todayReport.rain;
+  const rain = document.getElementById('rain');
+  console.log(todayReport.rain);
+  rain.textContent += (todayReport.precipProbability * 100) + '%';
 
-  let wind = document.getElementById('wind');
-  wind.textContent = todayReport.windSpeed+'m/s';
+  const wind = document.getElementById('wind');
+  wind.textContent += todayReport.windSpeed+'m/s';
+
+  const icon = document.getElementById('icon');
+  icon.src = '../assets/'+todayReport.icon+'.png';
 })
 .catch(function(error) {
     console.error(error);

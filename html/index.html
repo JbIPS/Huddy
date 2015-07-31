@@ -3,29 +3,29 @@
   <head>
     <meta charset="utf-8">
     <title>Huddy</title>
+    <link rel="stylesheet" href="../css/index.css" type="text/css" charset="utf-8">
     <script src="../js/index.js"></script>
   </head>
   <body>
     <div id="meteo">
-      <h2>Météo pour le </h2>
-      <p id="summary">
-
-      </p>
-      <p id="temperature">
-
-      </p>
-      <p id="rain">
-
-      </p>
-      <p id="wind">
-
-      </p>
+      <img id="icon"/>
+      <div class="blockLeft">
+        <h2></h2>
+        <h3></h3>
+        <p id="summary"></p>
+        <p id="wind">Vent : </p>
+        <p id="rain">Pluie : </p>
+      </div>
+      <div class="blockRight temp">
+        <p id="temperature"></p>
+        <p id="feltTemp"><span class="min"></span><span class="minTemp"></span><span class="max"></span><span class="maxTemp"></span></p>
+      </div>
     </div>
-    <div id="tweets">
+    <div id="tweets" class="blockLeft">
       <h2>Alertes</h2>
     </div>
     </div>
-    <div id="events">
+    <div id="events" class="blockRight">
       <h2>Evenements</h2>
 
     </div>
